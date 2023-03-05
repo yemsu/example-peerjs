@@ -1,0 +1,30 @@
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Client2</title>
+	<script src="https://unpkg.com/peerjs@1.3.1/dist/peerjs.min.js"></script>
+</head>
+<body>
+	<h1>Client2</h1>
+	<button onclick="sendMessage()">메세지 보내기</button>
+	<script>
+		const peer = new Peer('client22', {
+			host: 'localhost',
+			port: 9000,
+			path: '/'
+		});
+    let conn = null
+    peer.on('connection', (_conn)=>{
+      console.log('다른 클라이언트가 접속했습니다.', _conn)
+      conn = _conn
+      conn.on("data", (data) => {
+          console.log('클라이언트1에서 송신한 메시지', data);
+      });
+    });
+    function sendMessage() {
+      _conn.send('client2에서 보낸 메세지입니다.')
+    }
+	</script>
+</body>
+</html>
