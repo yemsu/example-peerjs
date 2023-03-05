@@ -1,14 +1,14 @@
-//Peer server
-// const fs = require('fs');
-// const privateKey  = fs.readFileSync('sslcert/server.key', 'utf8');
-// const certificate = fs.readFileSync('sslcert/server.crt', 'utf8');
-const { PeerServer } = require('peer');
-const peerServer = PeerServer({ 
-  port: 9000, 
-  path: '/' ,
-  // ssl: {
-  //     key: privateKey,
-  //     cert: certificate
-  //   }
+const express = require('express')
+const app = express()
+const server = require('http').Server(app)
+// const io = require('socket.io')(server)
+const { ExpressPeerServer } = require('peer');
+
+const peerServer = ExpressPeerServer(server, {
+  debug: true
 });
-console.log('start peerServer')
+
+app.use('/peerjs', peerServer);
+
+
+server.listen(3000);
