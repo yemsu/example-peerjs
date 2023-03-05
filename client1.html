@@ -14,7 +14,7 @@
 			port: 9000,
 			path: '/'
 		});
-		const conn = peer.connect('daewook')
+		const conn = peer.connect('client22')
 		conn.on('open',(id) => {
 			console.log('client2에 접속했습니다.', id)
       conn.on("data", (data) => {
